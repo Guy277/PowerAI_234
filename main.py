@@ -1666,7 +1666,7 @@ with st.sidebar:
         help="Bascule entre thème sombre (défaut) et thème clair pour une meilleure lisibilité.",
     )
     st.session_state.app_theme = "light" if _light_on else "dark"
-    st.caption("🌙 Sombre" if st.session_state.app_theme == "dark" else "☀️ Clair actif")
+    st.markdown(f"<small>{'🌙 Sombre' if st.session_state.app_theme == 'dark' else '☀️ Clair actif'}</small>", unsafe_allow_html=True)
 
 APP_THEME = get_app_theme()
 inject_theme_css(APP_THEME)
@@ -1697,18 +1697,11 @@ with tabs[0]:
     col1, col2 = st.columns([2, 1])
 
     with col1:
-        st.subheader("💡 Révolutionner le Conseil Bancaire avec l'Intelligence Artificielle")
+        st.subheader("🏦 Smart Finance Recommender – PowerAI_234")
         st.write("""
-        Bienvenue dans la simulation interactive de **PowerBank**, la banque digitale du futur. 
-        Dans le cadre du bootcamp *COT_GenAI & Machine Learning 2026*, nous présentons **Smart Finance Recommender (PowerAI_234)**.
-        
-        Ce système démontre comment le développement orienté objet robuste couplé aux méthodes avancées de la Data Science locale 
-        permet de dresser instantanément un diagnostic patrimonial complet d'un client et de lui proposer des produits adaptés.
-        """)
+        PowerBank est une banque digitale fictive dont le conseiller intelligent analyse les profils clients afin de recommander les solutions financières les plus adaptées : épargne, assurance, crédit et investissement.
 
-        st.info("""
-        👉 **Note Pédagogique :** Ce projet est conçu 100% en local, sans API externe et sans base de données SQL. 
-        Toutes les données clients sont simulées scientifiquement à l'aide de distributions statistiques complexes (NumPy) et d'outils générateurs (Faker).
+        🎯 Objectif : illustrer l'utilisation de Python, de la Data Science et de la programmation orientée objet pour créer un système de recommandation financier explicable.
         """)
 
         st.subheader("⚙️ Architecture Fonctionnelle")
