@@ -1,0 +1,902 @@
+[
+    {
+        "name": "Patrick Renard",
+        "age": 56,
+        "salary": 461497.1912598255,
+        "savings": 60837.619516522085,
+        "financial_goal": "HOUSING   ",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Jérôme Jacquet",
+        "age": 46,
+        "salary": 504284.78434307,
+        "savings": 54222.34691543784,
+        "financial_goal": "housing",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Awa Traoré",
+        "age": "",
+        "salary": 505206.5262152266,
+        "savings": 149405.11720489347,
+        "financial_goal": 12345,
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Josette Gaillard",
+        "age": 60,
+        "salary": 485699.691614263,
+        "savings": 151913.5652440187,
+        "financial_goal": "housing",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Diallo Koné",
+        "age": 25,
+        "salary": 350996.7753853596,
+        "savings": null,
+        "financial_goal": "retirement",
+        "risk_level": "high",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Moussa Touré",
+        "age": 38,
+        "salary": 292713.16470210557,
+        "savings": 52139.70860509753,
+        "financial_goal": "retirement",
+        "risk_level": "medium",
+        "bank_status": "basic"
+    },
+    {
+        "name": "Koffi Keïta",
+        "age": null,
+        "salary": 168858.5394633524,
+        "savings": 37673.423391650584,
+        "financial_goal": "emergency",
+        "risk_level": "low",
+        "bank_status": "basic"
+    },
+    {
+        "name": "Bintou Keïta",
+        "age": 36,
+        "salary": null,
+        "savings": 128311.57142366329,
+        "financial_goal": "emergency",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "   ",
+        "age": null,
+        "salary": null,
+        "savings": 150261.41957412148,
+        "financial_goal": "retirement",
+        "risk_level": "high",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Marine Rousset",
+        "age": 28,
+        "salary": 322546.3367839179,
+        "savings": 130709.06198803509,
+        "financial_goal": "retirement",
+        "risk_level": "high",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Fatou Ouattara",
+        "age": "45 ans",
+        "salary": 545160.2882580981,
+        "savings": 178856.79331892304,
+        "financial_goal": "emergency",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "   ",
+        "age": 41,
+        "salary": 254250.88847620506,
+        "savings": -12500.0,
+        "financial_goal": "RETIREMENT   ",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Mariam Camara",
+        "age": 53,
+        "salary": "erreur_api",
+        "savings": 51264.67732567923,
+        "financial_goal": "investment",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Christiane Auger",
+        "age": 57,
+        "salary": 421518.5938060559,
+        "savings": 58747.56499412296,
+        "financial_goal": "emergency",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Sékou Diarrassouba",
+        "age": 41,
+        "salary": 234703.8172878325,
+        "savings": null,
+        "financial_goal": "retirement",
+        "risk_level": "high",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Bintou N'Diaye",
+        "age": 20,
+        "salary": 0.0,
+        "savings": -8750.5,
+        "financial_goal": "retirement",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Cheikh Soro",
+        "age": 5,
+        "salary": 516214.89472581027,
+        "savings": -12500.0,
+        "financial_goal": "investment",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Seydou N'Diaye",
+        "age": 19,
+        "salary": 491383.3649454318,
+        "savings": 27736.269417799747,
+        "financial_goal": "HOUSING   ",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Moussa Camara",
+        "age": 41,
+        "salary": null,
+        "savings": 141152.89867212833,
+        "financial_goal": "housing",
+        "risk_level": "low",
+        "bank_status": "premium"
+    },
+    {
+        "name": "Jacqueline Henry",
+        "age": 61,
+        "salary": 427345.37527906476,
+        "savings": 59691.17798248006,
+        "financial_goal": "investment",
+        "risk_level": "high",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Michèle Leduc",
+        "age": null,
+        "salary": 852121.4755077342,
+        "savings": 100153.57006616192,
+        "financial_goal": "investment",
+        "risk_level": "medium",
+        "bank_status": "premium"
+    },
+    {
+        "name": "Bintou Coulibaly",
+        "age": 55,
+        "salary": 251145.2872905674,
+        "savings": -8750.5,
+        "financial_goal": "",
+        "risk_level": "low",
+        "bank_status": "basic"
+    },
+    {
+        "name": "Amadou Keïta",
+        "age": 19,
+        "salary": 324190.62539787183,
+        "savings": 91264.35846782668,
+        "financial_goal": "emergency",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Bakary Koné",
+        "age": 999,
+        "salary": 371479.02775353554,
+        "savings": 70926.19501217404,
+        "financial_goal": "housing",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Michèle Leclerc",
+        "age": 50,
+        "salary": 181374.9357972036,
+        "savings": 39673.464748356695,
+        "financial_goal": "retirement",
+        "risk_level": "low",
+        "bank_status": "basic"
+    },
+    {
+        "name": "Constance Nguyen",
+        "age": 29,
+        "salary": 525948.826427519,
+        "savings": 162205.86187672085,
+        "financial_goal": "emergency",
+        "risk_level": "inconnu",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Moussa Sidibé",
+        "age": 39,
+        "salary": 506494.54868761793,
+        "savings": 78623.65764144062,
+        "financial_goal": "housing!!!",
+        "risk_level": "LOW",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Téné Bamba",
+        "age": null,
+        "salary": "",
+        "savings": 89002.78367154766,
+        "financial_goal": 12345,
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Awa Touré",
+        "age": 42,
+        "salary": 305181.6964857093,
+        "savings": 66022.24785181656,
+        "financial_goal": 12345,
+        "risk_level": "low",
+        "bank_status": "basic"
+    },
+    {
+        "name": "Amadou Sidibé",
+        "age": 44,
+        "salary": 170692.45808599296,
+        "savings": 71250.7414389698,
+        "financial_goal": "retirement",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Soro Bamba",
+        "age": 999,
+        "salary": 269503.83398229117,
+        "savings": -3200.0,
+        "financial_goal": "housing",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Yao Koné",
+        "age": 45,
+        "salary": 484119.57972797175,
+        "savings": 105488.8551812081,
+        "financial_goal": "retirement",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Guillaume Auger",
+        "age": "inconnu",
+        "salary": 350297.4009603723,
+        "savings": 78213.70986552516,
+        "financial_goal": "housing",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "   ",
+        "age": 32,
+        "salary": 320238.3688344388,
+        "savings": null,
+        "financial_goal": 12345,
+        "risk_level": "high",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Sékou Bamba",
+        "age": 64,
+        "salary": 450202.7664134727,
+        "savings": 80422.19058323793,
+        "financial_goal": "retirement",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Seydou Barry",
+        "age": 61,
+        "salary": 542146.1314104839,
+        "savings": 68202.99383790049,
+        "financial_goal": "retirement",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Tidiane Kouadio",
+        "age": 20,
+        "salary": 415996.3618078791,
+        "savings": 41260.24889784761,
+        "financial_goal": "emergency",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Alix Girard",
+        "age": 5,
+        "salary": 424031.80542084406,
+        "savings": 143744.3708632798,
+        "financial_goal": "emergency",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Christiane Le Goff",
+        "age": 24,
+        "salary": null,
+        "savings": 76556.88726023777,
+        "financial_goal": "housing",
+        "risk_level": "medium",
+        "bank_status": "premium"
+    },
+    {
+        "name": "Amadou Cissé",
+        "age": null,
+        "salary": null,
+        "savings": 110306.82550999119,
+        "financial_goal": "investment",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Diallo Coulibaly",
+        "age": null,
+        "salary": 336699.60349775915,
+        "savings": -99999.0,
+        "financial_goal": "housing",
+        "risk_level": "high",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Amadou Barry",
+        "age": 56,
+        "salary": "450000 FCFA",
+        "savings": 159558.8957457114,
+        "financial_goal": "housing",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Adjoua Soro",
+        "age": -3,
+        "salary": 344071.77442304237,
+        "savings": -8750.5,
+        "financial_goal": "",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Bernard Marchand",
+        "age": 21,
+        "salary": 328504.3986214134,
+        "savings": -12500.0,
+        "financial_goal": "rEtirEmEnt!!!",
+        "risk_level": "LOW",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Adjoua N'Diaye",
+        "age": 42,
+        "salary": 558322.7068195378,
+        "savings": 119789.07931192107,
+        "financial_goal": "  investment  ",
+        "risk_level": "medium",
+        "bank_status": "premium"
+    },
+    {
+        "name": "Cheikh Sidibé",
+        "age": 31,
+        "salary": 339126.6260844132,
+        "savings": 80227.34985752749,
+        "financial_goal": "retirement",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Madeleine Foucher",
+        "age": 26,
+        "salary": 100000.0,
+        "savings": null,
+        "financial_goal": "investment",
+        "risk_level": "",
+        "bank_status": "basic"
+    },
+    {
+        "name": "Tristan Bonneau",
+        "age": 43,
+        "salary": 428372.5121444273,
+        "savings": 80390.16740062047,
+        "financial_goal": "retirement",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Sylvie Dumont",
+        "age": 19,
+        "salary": 324627.69677875895,
+        "savings": 25064.63462277742,
+        "financial_goal": "investment",
+        "risk_level": "high",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Alix Georges",
+        "age": 37,
+        "salary": 0.0,
+        "savings": 87245.96627855756,
+        "financial_goal": "housing",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Bernadette Fournier",
+        "age": 45,
+        "salary": "",
+        "savings": 66384.19374381842,
+        "financial_goal": 12345,
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Matthieu Didier",
+        "age": null,
+        "salary": 356751.47283085086,
+        "savings": null,
+        "financial_goal": "retirement",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Alassane Ouattara",
+        "age": 24,
+        "salary": 410091.4362132657,
+        "savings": 109970.10401045572,
+        "financial_goal": "HOUSING   ",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Alix Fontaine",
+        "age": 61,
+        "salary": 100000.0,
+        "savings": -8750.5,
+        "financial_goal": "invEstmEnt!!!",
+        "risk_level": "low",
+        "bank_status": "basic"
+    },
+    {
+        "name": "Bintou N'Diaye",
+        "age": 25,
+        "salary": 247972.04681458327,
+        "savings": 35393.79142671015,
+        "financial_goal": "housing",
+        "risk_level": "medium",
+        "bank_status": "basic"
+    },
+    {
+        "name": "Alassane Gaye",
+        "age": 64,
+        "salary": "erreur_api",
+        "savings": 80200.22843286124,
+        "financial_goal": "emergency",
+        "risk_level": "low",
+        "bank_status": "premium"
+    },
+    {
+        "name": "Yao Cissé",
+        "age": 52,
+        "salary": 377402.8873683704,
+        "savings": 135089.48727889013,
+        "financial_goal": "UNKNOWN",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Soro Touré",
+        "age": 31,
+        "salary": null,
+        "savings": 29566.751967581567,
+        "financial_goal": "housing",
+        "risk_level": "low",
+        "bank_status": "basic"
+    },
+    {
+        "name": "Bintou Koné",
+        "age": 34,
+        "salary": 229845.54317900795,
+        "savings": 84966.50208229056,
+        "financial_goal": "emergency",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Kouamé Cissé",
+        "age": 53,
+        "salary": 241037.93488355333,
+        "savings": 80368.18817056679,
+        "financial_goal": "housing",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Cheikh Camara",
+        "age": 57,
+        "salary": 394328.67555695336,
+        "savings": 115068.64653301142,
+        "financial_goal": "investment",
+        "risk_level": "high",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Marine Dijoux",
+        "age": 21,
+        "salary": 319434.70072327816,
+        "savings": -8750.5,
+        "financial_goal": "rEtirEmEnt!!!",
+        "risk_level": "low",
+        "bank_status": "basic"
+    },
+    {
+        "name": "Soro Sidibé",
+        "age": null,
+        "salary": 287714.4776588931,
+        "savings": -99999.0,
+        "financial_goal": "housing",
+        "risk_level": "medium",
+        "bank_status": "basic"
+    },
+    {
+        "name": "Téné Ouattara",
+        "age": 23,
+        "salary": 380551.2226203964,
+        "savings": -8750.5,
+        "financial_goal": "investment",
+        "risk_level": "high",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Diallo N'Diaye",
+        "age": 59,
+        "salary": "",
+        "savings": 64656.81392389857,
+        "financial_goal": "investment",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Kouamé Traoré",
+        "age": 21,
+        "salary": 343735.9897365553,
+        "savings": 37896.953964713066,
+        "financial_goal": "housing",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Bakary Traoré",
+        "age": 46,
+        "salary": 299540.7109341241,
+        "savings": null,
+        "financial_goal": "EMERGENCY   ",
+        "risk_level": "extreme",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Seydou Sylla",
+        "age": 35,
+        "salary": null,
+        "savings": 128601.543278964,
+        "financial_goal": "housing",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Amadou Gaye",
+        "age": 43,
+        "salary": -85000.0,
+        "savings": 119989.5251446894,
+        "financial_goal": "retirement",
+        "risk_level": "high",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Joséphine Lacombe",
+        "age": 61,
+        "salary": 378966.77900775976,
+        "savings": 97366.3006070202,
+        "financial_goal": "housing",
+        "risk_level": "high",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Tidiane Traoré",
+        "age": 51,
+        "salary": 487421.5574188966,
+        "savings": 42337.009577864075,
+        "financial_goal": "HOUSING   ",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Éric Richard",
+        "age": 27,
+        "salary": null,
+        "savings": 67043.84220372007,
+        "financial_goal": "housing!!!",
+        "risk_level": "high",
+        "bank_status": "basic"
+    },
+    {
+        "name": "Brigitte Vidal",
+        "age": 53,
+        "salary": null,
+        "savings": null,
+        "financial_goal": "retirement",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Luce Dupré",
+        "age": 31,
+        "salary": 488239.71982449485,
+        "savings": 46873.79491180944,
+        "financial_goal": "",
+        "risk_level": "high",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Téné Sow",
+        "age": 48,
+        "salary": 267744.10193104285,
+        "savings": null,
+        "financial_goal": "INVESTMENT   ",
+        "risk_level": "inconnu",
+        "bank_status": "basic"
+    },
+    {
+        "name": "Rémy Guillaume",
+        "age": 65,
+        "salary": null,
+        "savings": 163511.37071387167,
+        "financial_goal": "emergency",
+        "risk_level": "low",
+        "bank_status": "premium"
+    },
+    {
+        "name": "Koffi Bamba",
+        "age": 32,
+        "salary": 576728.7428229463,
+        "savings": 151450.34798593743,
+        "financial_goal": "housing",
+        "risk_level": "low",
+        "bank_status": "premium"
+    },
+    {
+        "name": "Seydou Soro",
+        "age": "45 ans",
+        "salary": 574925.6054888663,
+        "savings": 171620.80137559425,
+        "financial_goal": "housing",
+        "risk_level": "medium",
+        "bank_status": "premium"
+    },
+    {
+        "name": "Matthieu Caron",
+        "age": 31,
+        "salary": null,
+        "savings": 92520.13968727055,
+        "financial_goal": "investment",
+        "risk_level": "high",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Alice Lacombe",
+        "age": 40,
+        "salary": 390765.29280184,
+        "savings": 62597.15483286875,
+        "financial_goal": "emergency",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Isabelle Bousquet",
+        "age": null,
+        "salary": 310919.4524915343,
+        "savings": 43401.34808592125,
+        "financial_goal": "retirement",
+        "risk_level": "low",
+        "bank_status": "basic"
+    },
+    {
+        "name": "Emmanuel Joly",
+        "age": 38,
+        "salary": 509242.7651678734,
+        "savings": 155947.32151855956,
+        "financial_goal": "investment",
+        "risk_level": "high",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Moussa Soro",
+        "age": null,
+        "salary": 618924.6935149847,
+        "savings": -8750.5,
+        "financial_goal": "investment",
+        "risk_level": "medium",
+        "bank_status": "premium"
+    },
+    {
+        "name": "Alphonse Bailly",
+        "age": null,
+        "salary": 502302.51818895305,
+        "savings": 171742.0171649019,
+        "financial_goal": "investment",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Tidiane Koné",
+        "age": 35,
+        "salary": 381280.20840361924,
+        "savings": 116668.74328285217,
+        "financial_goal": "emergency",
+        "risk_level": "LOW",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Soro Sow",
+        "age": 64,
+        "salary": 328824.498443444,
+        "savings": 85941.41980853565,
+        "financial_goal": "emergency",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Alassane Coulibaly",
+        "age": 41,
+        "salary": "erreur_api",
+        "savings": 97841.91353468386,
+        "financial_goal": "HOUSING   ",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Marthe Perrot",
+        "age": 43,
+        "salary": 208797.70486545705,
+        "savings": 74517.63137207832,
+        "financial_goal": "investment",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Yao Touré",
+        "age": 42,
+        "salary": -85000.0,
+        "savings": 112204.70099232705,
+        "financial_goal": "  investment  ",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Élisabeth Lacombe",
+        "age": 62,
+        "salary": 251943.26962342116,
+        "savings": 58710.11548663313,
+        "financial_goal": "rEtirEmEnt!!!",
+        "risk_level": "low",
+        "bank_status": "basic"
+    },
+    {
+        "name": "Gnamien Koné",
+        "age": 58,
+        "salary": 466876.75023464294,
+        "savings": -12500.0,
+        "financial_goal": "retirement",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Soro Sidibé",
+        "age": 46,
+        "salary": null,
+        "savings": null,
+        "financial_goal": "housing",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Amadou Diallo",
+        "age": 32,
+        "salary": 325642.984143274,
+        "savings": 28888.515135272875,
+        "financial_goal": "investment",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "",
+        "age": 62,
+        "salary": 99999999.0,
+        "savings": 39743.8189729688,
+        "financial_goal": "investment",
+        "risk_level": "low",
+        "bank_status": "basic"
+    },
+    {
+        "name": "Awa Soro",
+        "age": 18,
+        "salary": null,
+        "savings": 52853.503680747584,
+        "financial_goal": "retirement",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Yao Kouadio",
+        "age": 42,
+        "salary": 457857.05179475516,
+        "savings": 90166.46003172774,
+        "financial_goal": "housing",
+        "risk_level": "inconnu",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Nath Hernandez",
+        "age": 24,
+        "salary": 526140.485528612,
+        "savings": 58757.298839469084,
+        "financial_goal": "UNKNOWN",
+        "risk_level": "low",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Mathilde Barbe",
+        "age": 26,
+        "salary": 453702.7425868574,
+        "savings": 103337.69735681514,
+        "financial_goal": "investment",
+        "risk_level": "high",
+        "bank_status": "standard"
+    },
+    {
+        "name": "Moussa Barry",
+        "age": 41,
+        "salary": 570944.1134183947,
+        "savings": 118839.66556547163,
+        "financial_goal": "investment",
+        "risk_level": "low",
+        "bank_status": "premium"
+    },
+    {
+        "name": "Mariam Diarrassouba",
+        "age": 18,
+        "salary": 735482.7802777066,
+        "savings": 115607.8290590122,
+        "financial_goal": "investment",
+        "risk_level": "high",
+        "bank_status": "premium"
+    }
+]
