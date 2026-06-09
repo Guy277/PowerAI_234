@@ -1,12 +1,6 @@
 # ==============================================================================
-# ============================================================
-# FICHIER PRINCIPAL : main.py
 # PROJET             : PowerAI_234 – Smart Finance Recommender
 # BOOTCAMP           : COT_GenAI & Machine Learning 2026
-# DESCRIPTION        : Application Streamlit simulant un conseiller bancaire
-#                      intelligent basé sur la POO, la programmation fonctionnelle
-#                      et la data science (NumPy, Pandas, SciPy, Matplotlib, Seaborn).
-# ============================================================
 # ==============================================================================
 
 
@@ -15,9 +9,7 @@
 # ==============================================================================
 
 # --- streamlit : Framework web interactif pour Python ---
-# Permet de construire des interfaces graphiques (UI) directement en Python,
-# sans avoir besoin d'HTML/JavaScript séparés. Chaque widget (bouton, slider,
-# tableau…) se met à jour en temps réel dès que l'utilisateur interagit.
+
 import streamlit as st
 
 # --- pandas : Manipulation de données tabulaires ---
@@ -82,9 +74,6 @@ import random
 from functools import reduce
 
 # --- faker : Génération de données fictives réalistes ---
-# Bibliothèque tierce qui produit des noms, adresses, e-mails, dates…
-# aléatoires mais plausibles. La locale 'fr_FR' génère des données en
-# français. Utilisée pour créer la base de clients fictifs de PowerBank.
 from faker import Faker
 
 
@@ -128,21 +117,22 @@ os.makedirs(DATA_DIR, exist_ok=True)
 # Palettes thème sombre / clair (lisibilité texte + graphiques)
 APP_THEMES = {
     "dark": {
-        "bg_main": "#0E1117",
-        "bg_card": "#161B22",
+        "bg_main": "#0B1F3A",  # Bleu foncé (Guide Style)
+        "bg_card": "#162B4A",
         "bg_code": "#0D1117",
         "text": "#FFFFFF",
-        "text_muted": "#C9D1D9",
-        "text_subtle": "#8B949E",
-        "border": "#21262D",
-        "border_strong": "#30363D",
-        "accent": "#58A6FF",
+        "text_muted": "#CBD5E1",
+        "text_subtle": "#94A3B8",
+        "border": "#1E3A5F",
+        "border_strong": "#2D4B75",
+        "accent": "#1E88E5",    # Bleu bancaire (Guide Style)
+        "success": "#2E7D32",   # Vert (Guide Style)
         "plotly_template": "plotly_dark",
-        "plot_paper": "#1C2128",
-        "plot_bg": "#22272E",
-        "plot_font": "#E6EDF3",
+        "plot_paper": "#0B1F3A",
+        "plot_bg": "#162B4A",
+        "plot_font": "#F1F5F9",
         "plot_title": "#FFFFFF",
-        "plot_grid": "#30363D",
+        "plot_grid": "#1E3A5F",
         "anomaly_null": ("#5c3535", "#ffecec"),
         "anomaly_neg": ("#5c4a1f", "#fff3c4"),
         "anomaly_goal": ("#3d2b5c", "#e8d4ff"),
@@ -150,21 +140,22 @@ APP_THEMES = {
         "anomaly_type": ("#1f3d5c", "#c8e4ff"),
     },
     "light": {
-        "bg_main": "#FFFFFF",
-        "bg_card": "#F6F8FA",
-        "bg_code": "#F6F8FA",
-        "text": "#1F2328",
-        "text_muted": "#424A53",
-        "text_subtle": "#656D76",
-        "border": "#D0D7DE",
-        "border_strong": "#C9D1D9",
-        "accent": "#0969DA",
+        "bg_main": "#F8FAFC",  # Blanc cassé (Guide Style)
+        "bg_card": "#FFFFFF",  # Blanc (Guide Style)
+        "bg_code": "#F1F5F9",
+        "text": "#0B1F3A",     # Bleu foncé (Guide Style)
+        "text_muted": "#475569",
+        "text_subtle": "#64748B",
+        "border": "#E2E8F0",
+        "border_strong": "#CBD5E1",
+        "accent": "#1E88E5",    # Bleu bancaire (Guide Style)
+        "success": "#2E7D32",   # Vert (Guide Style)
         "plotly_template": "plotly_white",
         "plot_paper": "#FFFFFF",
-        "plot_bg": "#F6F8FA",
-        "plot_font": "#1F2328",
-        "plot_title": "#1F2328",
-        "plot_grid": "#D0D7DE",
+        "plot_bg": "#F8FAFC",
+        "plot_font": "#0B1F3A",
+        "plot_title": "#0B1F3A",
+        "plot_grid": "#E2E8F0",
         "anomaly_null": ("#ffe0e0", "#8b0000"),
         "anomaly_neg": ("#fff3cd", "#7a5c00"),
         "anomaly_goal": ("#ede7f6", "#4a148c"),
@@ -183,69 +174,107 @@ def theme_palette(theme=None):
 
 
 def inject_theme_css(theme=None):
-    """Injecte le CSS global selon le thème actif."""
+    """Injecte le CSS global selon le thème actif avec un style bancaire moderne."""
     t = theme_palette(theme)
     st.markdown(f"""
     <style>
-        .main {{
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        html, body, [data-testid="stAppViewContainer"] {{
+            font-family: 'Inter', sans-serif;
             background-color: {t['bg_main']};
             color: {t['text']};
         }}
-        .stMetric {{
-            background-color: {t['bg_card']};
-            padding: 15px;
-            border-radius: 10px;
+
+        /* Style des métriques (KPIs) */
+        div[data-testid="stMetric"] {{
+            background: {t['bg_card']};
             border: 1px solid {t['border']};
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            padding: 20px !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }}
-        div[data-testid="stMetricLabel"],
-        div[data-testid="stMetricLabel"] p {{
-            color: {t['text_muted']} !important;
-            font-size: 14px;
-            font-weight: 500;
-        }}
-        div[data-testid="stMetricValue"],
-        div[data-testid="stMetricValue"] > div {{
-            color: {t['accent']} !important;
-            font-size: 24px;
-            font-weight: bold;
-        }}
-        div[data-testid="stMetricDelta"] {{
-            color: {t['text_subtle']} !important;
-        }}
-        .recom-card {{
-            background-color: {t['bg_card']};
-            border: 1px solid {t['border_strong']};
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
-        }}
-        .recom-card:hover {{
+        div[data-testid="stMetric"]:hover {{
+            transform: translateY(-5px);
             border-color: {t['accent']};
         }}
-        .code-box {{
-            background-color: {t['bg_code']};
-            border: 1px solid {t['border']};
-            border-radius: 8px;
-            padding: 15px;
+
+        /* Cartes de recommandation */
+        .recom-card {{
+            background: {t['bg_card']};
+            border-left: 5px solid {t['accent']};
+            border-right: 1px solid {t['border']};
+            border-top: 1px solid {t['border']};
+            border-bottom: 1px solid {t['border']};
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
         }}
-        .badge-premium {{
-            background-color: #f39c12; color: #000000;
-            padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;
+        .recom-card:hover {{
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            border-color: {t['accent']};
         }}
-        .badge-standard {{
-            background-color: {t['accent']}; color: #ffffff;
-            padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;
-        }}
-        .badge-basic {{
-            background-color: {t['text_subtle']}; color: #ffffff;
-            padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;
-        }}
+
+        /* Sidebar Navigation */
         [data-testid="stSidebar"] {{
             background-color: {t['bg_card']};
+            border-right: 1px solid {t['border']};
         }}
-        h1, h2, h3, h4, h5, h6, p, label, span {{
-            color: {t['text']};
+        
+        /* Texte de la sidebar (Radios, etc.) */
+        [data-testid="stSidebar"] .stMarkdown p, 
+        [data-testid="stSidebar"] label {{
+            color: {t['text']} !important;
+            font-weight: 500;
+        }}
+        
+        /* Boutons personnalisés */
+        .stButton>button {{
+            border-radius: 10px;
+            padding: 10px 24px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }}
+        
+        /* Badges */
+        .badge-premium {{
+            background: linear-gradient(135deg, #f39c12, #d35400); color: white;
+            padding: 6px 12px; border-radius: 30px; font-size: 11px; font-weight: 700; text-transform: uppercase;
+        }}
+        .badge-standard {{
+            background: linear-gradient(135deg, #3498db, #2980b9); color: white;
+            padding: 6px 12px; border-radius: 30px; font-size: 11px; font-weight: 700; text-transform: uppercase;
+        }}
+        .badge-basic {{
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d); color: white;
+            padding: 6px 12px; border-radius: 30px; font-size: 11px; font-weight: 700; text-transform: uppercase;
+        }}
+
+        /* Titres */
+        h1, h2, h3 {{
+            letter-spacing: -0.02em;
+            font-weight: 700;
+            color: {t['accent']};
+        }}
+        
+        .main-title {{
+            background: linear-gradient(90deg, {t['accent']}, {t['success']});
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }}
+
+        /* Personnalisation des conteneurs Info/Success */
+        .stAlert {{
+            border-radius: 12px;
+            border: none;
+            background-color: {t['bg_card']};
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }}
     </style>
     """, unsafe_allow_html=True)
@@ -1540,41 +1569,41 @@ def _style_plotly_figure(fig, theme=None, height=380):
 
 
 def build_plotly_charts(df, catalog, theme=None):
-    """
-    Construit 4 graphiques Plotly interactifs (zoom, survol, légende).
-    Retourne une liste de figures prêtes pour st.plotly_chart().
-    """
+    """Génère les 4 graphiques interactifs avec la palette Bleu/Vert PowerBank."""
     import plotly.express as px
     import plotly.graph_objects as go
-
+    t = theme_palette(theme)
     charts = []
+    
+    # Palette PowerBank : Bleus et Verts (Guide Style)
+    pb_colors = ["#1E88E5", "#2E7D32", "#38BDF8", "#4ADE80", "#0B1F3A"]
 
-    # 1 — Objectifs financiers
+    # 1 — Objectifs financiers (Pie Chart pour élégance)
     goal_counts = df['financial_goal'].value_counts().reset_index()
     goal_counts.columns = ['Objectif', 'Clients']
-    fig1 = px.bar(
-        goal_counts, x='Objectif', y='Clients', color='Objectif',
+    goal_counts['Objectif'] = goal_counts['Objectif'].map(lambda x: GOAL_MAP.get(x, x))
+    
+    fig1 = px.pie(
+        goal_counts, names='Objectif', values='Clients',
         title="1. Répartition des objectifs clients",
-        color_discrete_sequence=px.colors.sequential.Viridis,
-        text='Clients',
+        hole=0.4,
+        color_discrete_sequence=pb_colors
     )
-    t = theme_palette(theme)
-    fig1.update_traces(textposition='outside', textfont=dict(color=t['plot_font']))
     charts.append(_style_plotly_figure(fig1, theme))
 
-    # 2 — Distribution des salaires (histogramme + densité)
+    # 2 — Distribution des salaires
     fig2 = px.histogram(
         df, x='salary', nbins=20, marginal='box',
         title="2. Distribution des salaires (FCFA)",
-        color_discrete_sequence=['#58A6FF'],
+        color_discrete_sequence=[pb_colors[0]],
         hover_data=['name', 'bank_status'],
         labels=dict(salary="Salaire (FCFA)", name="Nom", bank_status="Statut")
     )
     mean_sal = df['salary'].mean()
     fig2.add_vline(
-        x=mean_sal, line_dash='dash', line_color='#FF7B72',
+        x=mean_sal, line_dash='dash', line_color=t['success'],
         annotation_text=f"Moyenne: {mean_sal:,.0f}",
-        annotation_font_color=t['plot_font'],
+        annotation_font_color=t['text'],
     )
     charts.append(_style_plotly_figure(fig2, theme))
 
@@ -1582,14 +1611,14 @@ def build_plotly_charts(df, catalog, theme=None):
     contingency = pd.crosstab(df['risk_level'], df['financial_goal'])
     fig3 = px.imshow(
         contingency.values,
-        x=contingency.columns.tolist(),
-        y=contingency.index.tolist(),
+        x=[GOAL_MAP.get(c, c) for c in contingency.columns.tolist()],
+        y=[RISK_MAP.get(r, r) for r in contingency.index.tolist()],
         text_auto=True,
-        color_continuous_scale='reds',
+        color_continuous_scale=[[0, t['bg_card']], [1, pb_colors[0]]],
         title="3. Profils : risque vs objectif financier",
         labels=dict(color="Effectif", x="Objectif Financier", y="Niveau de Risque"),
     )
-    fig3.update_traces(textfont=dict(color=t['plot_font']))
+    fig3.update_traces(textfont=dict(color=t['text']))
     charts.append(_style_plotly_figure(fig3, theme))
 
     # 4 — Top recommandations par segment
@@ -1601,7 +1630,7 @@ def build_plotly_charts(df, catalog, theme=None):
             df_top, x='Volume', y='Produit', color='Statut',
             orientation='h', barmode='group',
             title="4. Top 5 produits recommandés par segment",
-            color_discrete_sequence=px.colors.qualitative.Set2,
+            color_discrete_sequence=pb_colors,
             labels=dict(Volume="Nombre de Recommandations", Produit="Produit Financier", Statut="Segment")
         )
     else:
@@ -1659,42 +1688,79 @@ catalog = get_catalog()
 # ÉTAPE 11 : INTERFACE UTILISATEUR STREAMLIT (UI)
 # ==============================================================================
 
-# --- Thème sombre / clair (sidebar) ---
-with st.sidebar:
-    st.markdown("### ⚙️ Affichage")
-    _light_on = st.toggle(
-        "☀️ Mode clair",
-        value=(st.session_state.get("app_theme", "dark") == "light"),
-        help="Bascule entre thème sombre (défaut) et thème clair pour une meilleure lisibilité.",
-    )
-    st.session_state.app_theme = "light" if _light_on else "dark"
-    st.markdown(f"<small>{'🌙 Sombre' if st.session_state.app_theme == 'dark' else '☀️ Clair actif'}</small>", unsafe_allow_html=True)
-
-APP_THEME = get_app_theme()
+# --- Fixation du thème sur "Light" (Style Bancaire Premium) ---
+# On retire le toggle pour garantir une cohérence visuelle parfaite pendant la présentation.
+st.session_state.app_theme = "light"
+APP_THEME = "light"
+t = theme_palette(APP_THEME)
 inject_theme_css(APP_THEME)
 
-# --- En-tête principale de l'application ---
-st.title("🏦 Smart Finance Recommender – PowerAI_234")
-st.caption("🏆 Solution Gagnante Hackathon COT_GenAI & Machine Learning 2026 — Simulation de conseiller intelligent PowerBank")
+with st.sidebar:
+    st.markdown(f"""
+    <div style="text-align: center; padding: 30px 0; background: linear-gradient(180deg, #1E3A5F 0%, #0B1F3A 100%); border-radius: 0 0 20px 20px; margin-bottom: 20px; border-bottom: 1px solid #1E88E5;">
+        <h1 style='color: #FFFFFF; margin: 0; font-size: 2.2rem; letter-spacing: -1px;'>🏦 PowerBank</h1>
+        <div style='color: #FFFFFF !important; font-size: 0.9rem; font-weight: 600; margin-top: 8px; text-transform: uppercase; letter-spacing: 2px; line-height: 1.2;'>
+            DIGITAL BANKING<br/>SOLUTION
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Navigation principale
+    st.markdown(f"<h3 style='color: {t['accent']}; padding-left: 10px;'>🧭 Menus</h3>", unsafe_allow_html=True)
+    menu_options = {
+        "🏠 Accueil": 0,
+        "🧹 Nettoyage": 1,
+        "👥 Clients": 2,
+        "🧑 Nouveau Client": 3,
+        "🤖 Recommandations": 4,
+        "🧠 Comment fonctionne l'IA": 5,
+        "📊 Statistiques": 6,
+        "📈 Dashboard": 7
+    }
+    
+    # Style personnalisé pour les radios dans la sidebar
+    selected_menu = st.radio(
+        "Accéder à :",
+        list(menu_options.keys()),
+        label_visibility="collapsed"
+    )
+    active_tab_index = menu_options[selected_menu]
 
-# --- Navigation par onglets (Tabs) ---
-# st.tabs() crée un système de navigation à onglets horizontal.
-# Retourne une liste d'objets "tab" utilisés comme gestionnaires de contexte (with tabs[i]:)
-tabs = st.tabs([
-    "🏛️ Accueil & Vue d'ensemble",
-    "🧹 Nettoyage des Données",
-    "👥 Base Clients PowerBank",
-    "🎯 Conseiller Recommandations",
-    "🧠 Explication du Moteur IA",
-    "📊 Analyse Statistique (SciPy)",
-    "📈 Dashboard Décisionnel (Jury)"
-])
+    st.markdown("---")
+    st.markdown(f"""
+    <div style='padding: 15px; background: #F1F5F9; border-radius: 12px; border: 1px solid {t['border']};'>
+        <div style='display: flex; align-items: center; margin-bottom: 5px;'>
+            <div style='width: 8px; height: 8px; background-color: #2ecc71; border-radius: 50%; margin-right: 10px; box-shadow: 0 0 5px #2ecc71;'></div>
+            <span style='color: {t['text']}; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;'>Système Connecté</span>
+        </div>
+        <p style='color: {t['text_muted']}; font-size: 0.75rem; margin: 0;'>
+            🤖 Moteur IA : Opérationnel
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+# --- Mappages Globaux pour l'UI ---
+GOAL_MAP = {
+    'retirement': 'Retraite',
+    'housing': 'Immobilier',
+    'emergency': 'Urgence',
+    'investment': 'Investissement'
+}
+RISK_MAP = {
+    'low': 'Faible',
+    'medium': 'Modéré',
+    'high': 'Élevé'
+}
+
+# --- En-tête principale de l'application ---
+st.markdown(f"<h1 class='main-title'>Smart Finance Recommender</h1>", unsafe_allow_html=True)
+st.caption("🏆 Solution Gagnante Hackathon COT_GenAI & Machine Learning 2026 — PowerAI_234")
 
 
 # ==============================================================================
 # ONGLET 1 : ACCUEIL & VUE D'ENSEMBLE
 # ==============================================================================
-with tabs[0]:
+if active_tab_index == 0:
     # Mise en page en 2 colonnes : grande colonne (2/3) + petite (1/3)
     col1, col2 = st.columns([2, 1])
 
@@ -1745,39 +1811,59 @@ with tabs[0]:
         """, language="text")
 
     with col2:
-        st.subheader("📈 Indicateurs Globaux (KPIs)")
+        st.subheader("🏛️ Indicateurs PowerBank")
 
         # --- Calcul des indicateurs clés de performance ---
         total_users = len(df_cleaned)
         avg_sal = df_cleaned['salary'].mean()
         avg_sav = df_cleaned['savings'].mean()
 
-        # st.metric() affiche une valeur chiffrée avec un label descriptif
-        st.metric(label="Nombre de Clients PowerBank", value=f"{total_users}")
-        st.write("")
-        st.metric(label="Salaire Moyen Portefeuille", value=f"{avg_sal:,.0f} FCFA")
-        st.write("")
-        st.metric(label="Épargne Moyenne Portefeuille", value=f"{avg_sav:,.0f} FCFA")
-        st.write("")
+        # KPIs avec icônes et style bancaire premium (Blocs harmonisés)
+        st.markdown(f"""
+        <div style="background: {t['bg_card']}; border: 1px solid {t['border']}; border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+            <div style="font-size: 0.8rem; color: {t['text_muted']}; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; font-weight: 600;">👥 Nombre de clients</div>
+            <div style="font-size: 2.2rem; font-weight: 800; color: {t['accent']}; line-height: 1;">{total_users}</div>
+        </div>
+        
+        <div style="background: {t['bg_card']}; border: 1px solid {t['border']}; border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+            <div style="font-size: 0.8rem; color: {t['text_muted']}; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; font-weight: 600;">💰 Salaire moyen</div>
+            <div style="font-size: 1.8rem; font-weight: 800; color: {t['success']}; line-height: 1;">{avg_sal:,.0f} <span style="font-size: 1rem; font-weight: 600;">FCFA</span></div>
+        </div>
+        
+        <div style="background: {t['bg_card']}; border: 1px solid {t['border']}; border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+            <div style="font-size: 0.8rem; color: {t['text_muted']}; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; font-weight: 600;">🏦 Épargne moyenne</div>
+            <div style="font-size: 1.8rem; font-weight: 800; color: {t['accent']}; line-height: 1;">{avg_sav:,.0f} <span style="font-size: 1rem; font-weight: 600;">FCFA</span></div>
+        </div>
+        """, unsafe_allow_html=True)
 
-        # --- Test Chi² rapide affiché sur l'accueil ---
-        # pd.crosstab() : tableau de contingence Statut vs Objectif
+        # --- Test Chi² rapide ---
         contingency_table = pd.crosstab(df_cleaned['bank_status'], df_cleaned['financial_goal'])
-        # stats.chi2_contingency() : test d'indépendance du Chi-deux
-        # Retourne : statistique chi2, p-value, degrés de liberté, fréquences attendues
         chi2, p_val, _, _ = stats.chi2_contingency(contingency_table)
 
-        # Message textuel selon la significativité statistique (seuil 5%)
-        status_text = "Relation Validée (Sig. < 5%)" if p_val < 0.05 else "Indépendance (p-value >= 5%)"
-        st.metric(label="Test d'Hypothèse (Chi²)", value=f"{p_val:.4f}",
-                  delta=status_text,
-                  delta_color="normal" if p_val < 0.05 else "off")
+        st.markdown(f"""
+        <div style="background: {t['bg_card']}; border: 1px solid {t['border']}; border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+            <div style="font-size: 0.8rem; color: {t['text_muted']}; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; font-weight: 600;">🎲 Test d'Indépendance (Chi²)</div>
+            <div style="font-size: 1.8rem; font-weight: 800; color: {t['text']}; line-height: 1;">p = {p_val:.4f}</div>
+            <div style="font-size: 0.85rem; color: {'#2ecc71' if p_val < 0.05 else t['text_muted']}; margin-top: 10px; font-weight: 600; display: flex; align-items: center;">
+                {'<span style="background: #2ecc71; color: white; padding: 2px 8px; border-radius: 4px; margin-right: 8px;">✅</span> Relation Validée' if p_val < 0.05 else '⚠️ Indépendance'}
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Segment dominant
+        top_segment = df_cleaned['bank_status'].mode()[0]
+        st.markdown(f"""
+        <div style="background: {t['bg_card']}; border: 1px solid {t['border']}; border-radius: 16px; padding: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+            <div style="font-size: 0.8rem; color: {t['text_muted']}; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; font-weight: 600;">🏆 Segment dominant</div>
+            <div class="badge-{top_segment.lower()}" style="display: inline-block; font-size: 0.9rem; padding: 8px 16px;">{top_segment.upper()}</div>
+        </div>
+        """, unsafe_allow_html=True)
 
 
 # ==============================================================================
 # ONGLET 2 : NETTOYAGE DES DONNÉES (Faker → JSON → Pandas Pipeline)
 # ==============================================================================
-with tabs[1]:
+elif active_tab_index == 1:
     st.subheader("🧹 Pipeline de filtrage et nettoyage des données")
     st.write(
         "Cet onglet montre le processus complet demandé en cours : génération **biaisée** "
@@ -1878,7 +1964,7 @@ with tabs[1]:
 # ==============================================================================
 # ONGLET 3 : BASE CLIENTS POWERBANK
 # ==============================================================================
-with tabs[2]:
+elif active_tab_index == 2:
     st.subheader("👥 Consultation interactive des clients PowerBank")
     st.write("Filtrez en temps réel la base des 100 clients de la banque digitale fictive pour inspecter leurs détails.")
 
@@ -1912,21 +1998,8 @@ with tabs[2]:
     # Application d'un mappage pour l'affichage (plus lisible pour le jury)
     df_display = df_filtered.copy()
     
-    # Mappage des valeurs techniques vers des libellés français
-    goal_map = {
-        'retirement': 'Retraite',
-        'housing': 'Immobilier',
-        'emergency': 'Urgence',
-        'investment': 'Investissement'
-    }
-    risk_map = {
-        'low': 'Faible',
-        'medium': 'Modéré',
-        'high': 'Élevé'
-    }
-    
-    df_display['financial_goal'] = df_display['financial_goal'].map(lambda x: goal_map.get(x, x))
-    df_display['risk_level'] = df_display['risk_level'].map(lambda x: risk_map.get(x, x))
+    df_display['financial_goal'] = df_display['financial_goal'].map(lambda x: GOAL_MAP.get(x, x))
+    df_display['risk_level'] = df_display['risk_level'].map(lambda x: RISK_MAP.get(x, x))
     
     # Renommer les colonnes pour l'affichage
     df_display.columns = [
@@ -1987,8 +2060,11 @@ with tabs[2]:
     st.subheader("🕵️ Inspecteur de Client individuel")
     selected_client_name = st.selectbox(
         "Sélectionnez un profil à auditer :",
-        df_filtered['name'].tolist() if not df_filtered.empty else ["Aucun"]
+        df_filtered['name'].tolist() if not df_filtered.empty else ["Aucun"],
+        key="inspector_client_selector"
     )
+    # On stocke en session pour le conseiller
+    st.session_state.last_inspected_client = selected_client_name
 
     if selected_client_name != "Aucun":
         # Récupération de la ligne du client sélectionné depuis le DataFrame complet
@@ -2014,8 +2090,8 @@ with tabs[2]:
             st.markdown(f"**Salaire mensuel :** {client_data['salary']:,.0f} FCFA")
             st.markdown(f"**Épargne totale :** {client_data['savings']:,.0f} FCFA")
         with c_col3:
-            goal_fr = goal_map.get(client_data['financial_goal'], client_data['financial_goal'])
-            risk_fr = risk_map.get(client_data['risk_level'], client_data['risk_level'])
+            goal_fr = GOAL_MAP.get(client_data['financial_goal'], client_data['financial_goal'])
+            risk_fr = RISK_MAP.get(client_data['risk_level'], client_data['risk_level'])
             st.markdown(f"**Objectif principal :** `{goal_fr.upper()}`")
             st.markdown(f"**Tolérance au risque :** `{risk_fr.upper()}`")
 
@@ -2036,162 +2112,95 @@ with tabs[2]:
 
 
 # ==============================================================================
-# ONGLET 4 : CONSEILLER RECOMMANDATIONS
+# ONGLET 4 : NOUVEAU CLIENT (Saisie & Recommandations)
 # ==============================================================================
-with tabs[3]:
-    st.subheader("🎯 Moteur de Recommandation Financière en Action")
+elif active_tab_index == 3:
+    st.subheader("🧑 Saisie manuelle d'un nouveau profil client")
+    st.info("Simulez un prospect entrant pour tester l'intelligence de recommandation en temps réel.")
 
-    # --- NOUVELLE FONCTIONNALITÉ : CHOIX DU CLIENT (EXISTANT OU NOUVEAU) ---
-    # Permet au jury de tester le système avec n'importe quel profil en direct.
-    mode_client = st.radio(
-        "Source des données client :",
-        [f"📋 Client existant de la base ({len(df_cleaned)} profils)", "🆕 SAISIR UN NOUVEAU CLIENT (Démo Jury)"],
-        horizontal=True,
-        help="Basculez sur 'Nouveau Client' pour saisir manuellement des données et voir les recommandations instantanées."
-    )
+    # Formulaire de saisie organisé en colonnes pour une meilleure ergonomie
+    col_new1, col_new2, col_new3 = st.columns(3)
 
-    if mode_client == f"📋 Client existant de la base ({len(df_cleaned)} profils)":
-        st.write("Sélectionnez un client dans la liste pour voir les propositions financières personnalisées générées par l'IA de PowerBank.")
+    with col_new1:
+        n_name = st.text_input("Nom complet :", value="Moussa Traoré")
+        n_age = st.slider("Âge du client :", 18, 85, 30)
+        
+        st.markdown("---")
+        st.markdown("**🧠 Analyse automatique du profil :**")
 
-        # Sélecteur de client (pré-sélectionne le client choisi dans l'onglet 2 si disponible)
-        rec_client_name = st.selectbox(
-            "Sélectionnez le client pour les recommandations :",
-            df_cleaned['name'].tolist(),
-            index=df_cleaned['name'].tolist().index(selected_client_name)
-                   if selected_client_name in df_cleaned['name'].tolist() else 0
-        )
+    with col_new2:
+        n_salary = st.number_input("Salaire mensuel (FCFA) :", min_value=0, value=350000, step=5000)
+        n_savings = st.number_input("Épargne totale (FCFA) :", min_value=0, value=75000, step=1000)
+        
+        # Calcul du statut en temps réel
+        if n_salary > 550000 or n_savings > 180000:
+            n_bank_status = 'premium'
+            status_label = "Premium ✨"
+        elif n_salary > 320000 or n_savings > 70000:
+            n_bank_status = 'standard'
+            status_label = "Standard 💳"
+        else:
+            n_bank_status = 'basic'
+            status_label = "Basic ⚪"
 
-        # Récupération de la ligne du client sélectionné
-        client_row = df_cleaned[df_cleaned['name'] == rec_client_name].iloc[0]
+    with col_new3:
+        inv_goal_map = {"Urgence": "emergency", "Immobilier": "housing", "Retraite": "retirement", "Investissement": "investment"}
+        n_goal_fr = st.selectbox("Objectif Financier :", list(inv_goal_map.keys()), index=1)
+        n_goal = inv_goal_map[n_goal_fr]
+        
+        # --- CALCUL AUTOMATIQUE DU RISQUE (PROFILING) ---
+        if n_goal == 'emergency':
+            n_risk = 'low'
+            risk_label = "Faible 🛡️"
+        elif n_goal == 'retirement' and n_age > 48:
+            n_risk = 'low'
+            risk_label = "Faible 🛡️"
+        elif n_goal == 'investment' and n_age < 32:
+            n_risk = 'high'
+            risk_label = "Élevé 🚀"
+        else:
+            n_risk = 'medium'
+            risk_label = "Modéré ⚖️"
 
-        # --- OPTION DE SUPPRESSION ---
-        with st.expander("🗑️ Zone de gestion du client", expanded=False):
-            st.warning(f"Attention : Vous êtes sur le point de supprimer définitivement **{rec_client_name}**.")
-            if st.button(f"Confirmer la suppression de {rec_client_name}", type="primary"):
-                try:
-                    with open(USERS_JSON_PATH, 'r', encoding='utf-8') as f:
-                        current_data = json.load(f)
-                    
-                    # Filtrer pour garder tout le monde sauf le client sélectionné
-                    # On compare sur le nom (attention si doublons, ici on simplifie)
-                    updated_data = [u for u in current_data if u['name'] != rec_client_name]
-                    
-                    with open(USERS_JSON_PATH, 'w', encoding='utf-8') as f:
-                        json.dump(updated_data, f, indent=4, ensure_ascii=False)
-                    
-                    st.toast(f"🗑️ {rec_client_name} a été supprimé de la base.", icon='🗑️')
-                    st.rerun()
-                except Exception as e:
-                    st.error(f"Erreur lors de la suppression : {e}")
+    # Affichage des résultats de l'IA de segmentation
+    with col_new1:
+        st.info(f"**Statut détecté :** {status_label}")
+        st.info(f"**Risque conseillé :** {risk_label}")
 
-        # --- Instanciation du Recommender (héritage de User) ---
-        active_recommender = Recommender(
-            name=client_row['name'],
-            age=client_row['age'],
-            salary=client_row['salary'],
-            savings=client_row['savings'],
-            financial_goal=client_row['financial_goal'],
-            risk_level=client_row['risk_level'],
-            bank_status=client_row['bank_status']
-        )
-    else:
-        st.markdown("#### 📝 Saisie manuelle d'un nouveau profil client")
-        st.info("Cette fonctionnalité permet de simuler un prospect entrant n'appartenant pas à la base de données initiale.")
-
-        # Formulaire de saisie organisé en colonnes pour une meilleure ergonomie
-        col_new1, col_new2, col_new3 = st.columns(3)
-
-        with col_new1:
-            n_name = st.text_input("Nom complet :", value="Moussa Traoré")
-            n_age = st.slider("Âge du client :", 18, 85, 30)
-            
-            # --- CALCUL AUTOMATIQUE DU STATUT (LOGIQUE MÉTIER) ---
-            # On utilise la même logique que dans generate_synthetic_users
-            st.markdown("---")
-            st.markdown("**🧠 Analyse automatique du profil :**")
-
-        with col_new2:
-            n_salary = st.number_input("Salaire mensuel (FCFA) :", min_value=0, value=350000, step=5000)
-            n_savings = st.number_input("Épargne totale (FCFA) :", min_value=0, value=75000, step=1000)
-            
-            # Calcul du statut en temps réel
-            if n_salary > 550000 or n_savings > 180000:
-                n_bank_status = 'premium'
-                status_label = "Premium ✨"
-            elif n_salary > 320000 or n_savings > 70000:
-                n_bank_status = 'standard'
-                status_label = "Standard 💳"
-            else:
-                n_bank_status = 'basic'
-                status_label = "Basic ⚪"
-
-        with col_new3:
-            inv_goal_map = {"Urgence": "emergency", "Immobilier": "housing", "Retraite": "retirement", "Investissement": "investment"}
-            n_goal_fr = st.selectbox("Objectif Financier :", list(inv_goal_map.keys()), index=1)
-            n_goal = inv_goal_map[n_goal_fr]
-            
-            # --- CALCUL AUTOMATIQUE DU RISQUE (PROFILING) ---
-            if n_goal == 'emergency':
-                n_risk = 'low'
-                risk_label = "Faible 🛡️"
-            elif n_goal == 'retirement' and n_age > 48:
-                n_risk = 'low'
-                risk_label = "Faible 🛡️"
-            elif n_goal == 'investment' and n_age < 32:
-                n_risk = 'high'
-                risk_label = "Élevé 🚀"
-            else:
-                n_risk = 'medium'
-                risk_label = "Modéré ⚖️"
-
-        # Affichage des résultats de l'IA de segmentation
-        with col_new1:
-            st.info(f"**Statut détecté :** {status_label}")
-            st.info(f"**Risque conseillé :** {risk_label}")
-
-        # --- Instanciation du Recommender pour le nouveau client ---
-        active_recommender = Recommender(
-            name=n_name,
-            age=n_age,
-            salary=n_salary,
-            savings=n_savings,
-            financial_goal=n_goal,
-            risk_level=n_risk,
-            bank_status=n_bank_status
-        )
-
-        # --- ACTIONS SUR LE NOUVEAU PROFIL ---
-        act_col1, act_col2 = st.columns(2)
-        with act_col1:
-            if st.button("📥 Enregistrer ce client dans la base", use_container_width=True, type="primary"):
-                # 1. Préparer le dictionnaire
-                new_user_dict = {
-                    "name": n_name,
-                    "age": n_age,
-                    "salary": n_salary,
-                    "savings": n_savings,
-                    "financial_goal": n_goal,
-                    "risk_level": n_risk,
-                    "bank_status": n_bank_status
-                }
-                # 2. Charger, ajouter et sauvegarder
-                try:
-                    with open(USERS_JSON_PATH, 'r', encoding='utf-8') as f:
-                        current_data = json.load(f)
-                    current_data.append(new_user_dict)
-                    with open(USERS_JSON_PATH, 'w', encoding='utf-8') as f:
-                        json.dump(current_data, f, indent=4, ensure_ascii=False)
-                    st.toast(f"✅ {n_name} a été ajouté à la base de données !", icon='🎉')
-                    # Forcer le rechargement pour que le nouveau client apparaisse partout
-                    st.rerun()
-                except Exception as e:
-                    st.error(f"Erreur lors de la sauvegarde : {e}")
-
-        with act_col2:
-            if st.button("🗑️ Effacer la saisie", use_container_width=True):
+    # --- ACTIONS SUR LE NOUVEAU PROFIL ---
+    st.markdown("### 🚀 Générer une recommandation")
+    act_col1, act_col2 = st.columns(2)
+    
+    # Bouton principal (Vert Succès selon Guide)
+    with act_col1:
+        if st.button("📥 Enregistrer et Analyser le Profil", use_container_width=True, type="primary"):
+            new_user_dict = {
+                "name": n_name, "age": n_age, "salary": n_salary, "savings": n_savings,
+                "financial_goal": n_goal, "risk_level": n_risk, "bank_status": n_bank_status
+            }
+            try:
+                with open(USERS_JSON_PATH, 'r', encoding='utf-8') as f:
+                    current_data = json.load(f)
+                current_data.append(new_user_dict)
+                with open(USERS_JSON_PATH, 'w', encoding='utf-8') as f:
+                    json.dump(current_data, f, indent=4, ensure_ascii=False)
+                st.toast(f"✅ {n_name} ajouté à la base PowerBank !", icon='🎉')
                 st.rerun()
+            except Exception as e:
+                st.error(f"Erreur : {e}")
 
-        st.success(f"✅ Profil de **{n_name}** prêt pour analyse. Recommandations générées ci-dessous.")
+    with act_col2:
+        if st.button("🗑️ Réinitialiser le formulaire", use_container_width=True):
+            st.rerun()
+
+    # --- Instanciation du Recommender pour le nouveau client ---
+    active_recommender = Recommender(
+        name=n_name, age=n_age, salary=n_salary, savings=n_savings,
+        financial_goal=n_goal, risk_level=n_risk, bank_status=n_bank_status
+    )
+    
+    st.markdown("---")
+    st.success(f"✅ Analyse de **{n_name}** terminée. Voici nos préconisations.")
 
     # --- Appel du moteur de recommandation (Filter → Map → Reduce) ---
     recoms = active_recommender.recommend(catalog)
@@ -2201,14 +2210,10 @@ with tabs[3]:
 
     with col_l:
         st.markdown(f"#### 🛍️ Recommandations PowerBank")
-        st.info(f"Bonjour M. {active_recommender.name}, voici les recommandations PowerBank adaptées à votre profil.")
+        st.info(f"Bonjour M. {active_recommender.name}, après analyse de votre profil financier, PowerBank vous recommande les produits suivants adaptés à votre situation financière et à vos objectifs.")
         
-        # Mappage pour l'affichage
-        goal_map = {'retirement': 'Retraite', 'housing': 'Immobilier', 'emergency': 'Urgence', 'investment': 'Investissement'}
-        risk_map = {'low': 'Faible', 'medium': 'Modéré', 'high': 'Élevé'}
-        
-        goal_fr = goal_map.get(active_recommender.financial_goal, active_recommender.financial_goal)
-        risk_fr = risk_map.get(active_recommender.risk_level, active_recommender.risk_level)
+        goal_fr = GOAL_MAP.get(active_recommender.financial_goal, active_recommender.financial_goal)
+        risk_fr = RISK_MAP.get(active_recommender.risk_level, active_recommender.risk_level)
         
         st.write(f"*Objectif principal :* `{goal_fr.upper()}` | *Risque :* `{risk_fr.upper()}` | *Statut :* `{active_recommender.bank_status.upper()}`")
 
@@ -2244,20 +2249,25 @@ with tabs[3]:
                 else:
                     score_color = "#95a5a6"  # Gris → match modéré
 
-                # Rendu de la carte produit en HTML personnalisé
+                # Rendu de la carte produit en HTML personnalisé (Style Banking Premium)
                 st.markdown(f"""
                 <div class="recom-card">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h4 style="margin: 0; color: #58A6FF;">{prod.name}</h4>
-                        <span style="background-color: {score_color}; color: #000000; padding: 3px 8px; border-radius: 5px; font-weight: bold; font-size: 13px;">
-                            Indice Match : {score:.0f}%
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3 style="margin: 0; color: {t['accent']}; font-size: 1.4rem;">{prod.name}</h3>
+                        <span style="background: {score_color}; color: white; padding: 6px 14px; border-radius: 50px; font-weight: 700; font-size: 0.85rem; box-shadow: 0 4px 10px {score_color}44;">
+                            {score:.0f}% MATCH
                         </span>
                     </div>
-                    <p style="font-style: italic; color: #8B949E; margin-top: 5px; font-size: 14px;">{prod.description}</p>
-                    <div style="margin-top: 10px;">
-                        <strong>🔍 Pourquoi ce choix ?</strong>
-                        <ul style="margin-top: 5px; margin-bottom: 0; padding-left: 20px; font-size: 13px;">
-                            {"".join([f"<li>{r}</li>" for r in reasons])}
+                    <div style="background: {t['bg_main']}44; border-radius: 8px; padding: 12px; margin-bottom: 15px; border: 1px dashed {t['border']};">
+                        <p style="font-style: italic; color: {t['text_muted']}; margin: 0; font-size: 0.95rem;">{prod.description}</p>
+                    </div>
+                    <div>
+                        <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                            <span style="background: {t['accent']}22; color: {t['accent']}; padding: 4px; border-radius: 6px; margin-right: 10px;">🔍</span>
+                            <strong style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; color: {t['text_subtle']};">Analyse du Conseiller</strong>
+                        </div>
+                        <ul style="margin: 0; padding-left: 25px; color: {t['text']}; font-size: 0.95rem; line-height: 1.6;">
+                            {"".join([f"<li style='margin-bottom: 5px;'>{r}</li>" for r in reasons])}
                         </ul>
                     </div>
                 </div>
@@ -2270,27 +2280,164 @@ with tabs[3]:
         # Appel du moteur de similarité pour trouver les 3 clients les plus proches
         similar_clients = compute_profile_similarities(active_recommender, df_cleaned, n_recommendations=3)
 
-        # Affichage de chaque client similaire sous forme de mini-carte HTML
+        # Affichage de chaque client similaire sous forme de mini-carte HTML (Style Sidebar Bancaire)
         for idx, row in similar_clients.iterrows():
             sim_percent = row['similarity_score'] * 100  # Conversion en pourcentage
-            goal_fr_sim = goal_map.get(row['financial_goal'], row['financial_goal'])
+            goal_fr_sim = GOAL_MAP.get(row['financial_goal'], row['financial_goal'])
             st.markdown(f"""
-            <div style="background-color: #161B22; border: 1px solid #21262D; border-radius: 8px; padding: 12px; margin-bottom: 10px;">
-                <div style="font-weight: bold; color: #ffffff;">{row['name']}</div>
-                <div style="font-size: 12px; color: #8B949E;">
-                    Similarité : <b>{sim_percent:.1f}%</b><br/>
-                    Âge : {row['age']} ans | Statut : {row['bank_status'].upper()}<br/>
-                    Objectif : {goal_fr_sim.upper()}<br/>
-                    Salaire : {row['salary']:,.0f} FCFA
+            <div style="background: {t['bg_card']}; border: 1px solid {t['border']}; border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                <div style="font-weight: 700; color: {t['text']}; font-size: 1rem; margin-bottom: 5px;">{row['name']}</div>
+                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                    <div style="background: {t['accent']}22; color: {t['accent']}; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px;">
+                        SIMILARITÉ : {sim_percent:.1f}%
+                    </div>
+                </div>
+                <div style="font-size: 12px; color: {t['text_muted']}; line-height: 1.5;">
+                    <span style="color: {t['text_subtle']};">Âge :</span> <b>{row['age']} ans</b><br/>
+                    <span style="color: {t['text_subtle']};">Statut :</span> <b>{row['bank_status'].upper()}</b><br/>
+                    <span style="color: {t['text_subtle']};">Objectif :</span> <b>{goal_fr_sim.upper()}</b><br/>
+                    <span style="color: {t['text_subtle']};">Salaire :</span> <b>{row['salary']:,.0f} FCFA</b>
                 </div>
             </div>
             """, unsafe_allow_html=True)
 
 
 # ==============================================================================
-# ONGLET 5 : EXPLICATION DU MOTEUR IA (pour le jury)
+# ONGLET 5 : RECOMMANDATIONS (Client Existant)
 # ==============================================================================
-with tabs[4]:
+elif active_tab_index == 4:
+    st.subheader("🤖 Recommandations Personnalisées")
+    st.write("Sélectionnez un client existant pour générer ses recommandations PowerBank.")
+
+    # 1. On stabilise la liste des noms (triée et unique)
+    all_client_names = sorted(df_cleaned['name'].unique().tolist())
+
+    # 2. On initialise l'état de session si c'est la première fois
+    if "rec_user_choice" not in st.session_state:
+        st.session_state.rec_user_choice = all_client_names[0]
+
+    # 3. Fonction de rappel (Callback) pour verrouiller le choix
+    def update_rec_choice():
+        st.session_state.rec_user_choice = st.session_state.rec_selector_widget
+
+    # 4. Le sélecteur avec verrouillage par état
+    rec_client_name = st.selectbox(
+        "Sélectionnez le client à analyser :",
+        all_client_names,
+        index=all_client_names.index(st.session_state.rec_user_choice) 
+              if st.session_state.rec_user_choice in all_client_names else 0,
+        key="rec_selector_widget",
+        on_change=update_rec_choice
+    )
+
+    # On s'assure que la variable de travail est bien celle choisie
+    rec_client_name = st.session_state.rec_user_choice
+
+    # Récupération de la ligne du client sélectionné
+    client_row = df_cleaned[df_cleaned['name'] == rec_client_name].iloc[0]
+
+    # --- OPTION DE SUPPRESSION ---
+    with st.expander("🗑️ Zone de gestion du compte", expanded=False):
+        st.warning(f"Action irréversible : supprimer **{rec_client_name}**.")
+        if st.button(f"Confirmer la suppression", type="primary"):
+            try:
+                with open(USERS_JSON_PATH, 'r', encoding='utf-8') as f:
+                    current_data = json.load(f)
+                updated_data = [u for u in current_data if u['name'] != rec_client_name]
+                with open(USERS_JSON_PATH, 'w', encoding='utf-8') as f:
+                    json.dump(updated_data, f, indent=4, ensure_ascii=False)
+                st.toast(f"🗑️ Profil supprimé.")
+                st.rerun()
+            except Exception as e:
+                st.error(f"Erreur : {e}")
+
+    # --- Instanciation du Recommender ---
+    active_recommender = Recommender(
+        name=client_row['name'],
+        age=client_row['age'],
+        salary=client_row['salary'],
+        savings=client_row['savings'],
+        financial_goal=client_row['financial_goal'],
+        risk_level=client_row['risk_level'],
+        bank_status=client_row['bank_status']
+    )
+
+    # --- Appel du moteur de recommandation ---
+    recoms = active_recommender.recommend(catalog)
+
+    # Mise en page : recommandations à gauche (3/4) | clients similaires à droite (1/4)
+    col_l, col_r = st.columns([3, 1])
+
+    with col_l:
+        st.markdown(f"#### 🛍️ Recommandations PowerBank")
+        st.info(f"Bonjour M. {active_recommender.name}, après analyse de votre profil financier, PowerBank vous recommande les produits suivants.")
+        
+        goal_fr = GOAL_MAP.get(active_recommender.financial_goal, active_recommender.financial_goal)
+        risk_fr = RISK_MAP.get(active_recommender.risk_level, active_recommender.risk_level)
+        st.write(f"*Objectif :* `{goal_fr.upper()}` | *Risque :* `{risk_fr.upper()}` | *Statut :* `{active_recommender.bank_status.upper()}`")
+
+        categories_fr = {
+            "banking": "🏦 Banque & Comptes au Quotidien",
+            "insurance": "🛡️ Assurances & Prévoyance",
+            "investment": "📈 Placements & Investissements",
+            "loans": "🏠 Solutions de Financement & Crédits"
+        }
+
+        for category_key, category_title in categories_fr.items():
+            st.markdown(f"##### {category_title}")
+            category_recoms = recoms.get(category_key, [])
+
+            if not category_recoms:
+                st.info("Aucun produit spécifique pour ce profil.")
+                continue
+
+            for rec in category_recoms:
+                prod, score, reasons = rec['product'], rec['score'], rec['reasons']
+                score_color = "#2ecc71" if score >= 80 else "#f1c40f" if score >= 60 else "#95a5a6"
+
+                st.markdown(f"""
+                <div class="recom-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3 style="margin: 0; color: {t['accent']}; font-size: 1.4rem;">{prod.name}</h3>
+                        <span style="background: {score_color}; color: white; padding: 6px 14px; border-radius: 50px; font-weight: 700; font-size: 0.85rem;">
+                            {score:.0f}% MATCH
+                        </span>
+                    </div>
+                    <div style="background: {t['bg_main']}44; border-radius: 8px; padding: 12px; margin-bottom: 15px; border: 1px dashed {t['border']};">
+                        <p style="font-style: italic; color: {t['text_muted']}; margin: 0; font-size: 0.95rem;">{prod.description}</p>
+                    </div>
+                    <div>
+                        <ul style="margin: 0; padding-left: 25px; color: {t['text']}; font-size: 0.95rem;">
+                            {"".join([f"<li style='margin-bottom: 5px;'>{r}</li>" for r in reasons])}
+                        </ul>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+
+    with col_r:
+        st.markdown("#### 👥 Clients Similaires")
+        similar_clients = compute_profile_similarities(active_recommender, df_cleaned, n_recommendations=3)
+        for idx, row in similar_clients.iterrows():
+            sim_percent = row['similarity_score'] * 100
+            goal_fr_sim = GOAL_MAP.get(row['financial_goal'], row['financial_goal'])
+            st.markdown(f"""
+            <div style="background: {t['bg_card']}; border: 1px solid {t['border']}; border-radius: 12px; padding: 15px; margin-bottom: 15px;">
+                <div style="font-weight: 700; color: {t['text']}; font-size: 1rem; margin-bottom: 5px;">{row['name']}</div>
+                <div style="background: {t['accent']}22; color: {t['accent']}; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 10px;">
+                    MATCH : {sim_percent:.1f}%
+                </div>
+                <div style="font-size: 12px; color: {t['text_muted']};">
+                    Âge : <b>{row['age']} ans</b><br/>
+                    Objectif : <b>{goal_fr_sim.upper()}</b>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+
+# ==============================================================================
+# ONGLET 6 : COMMENT FONCTIONNE L'IA (pour le jury)
+# ==============================================================================
+elif active_tab_index == 5:
     st.subheader("🧠 Décryptage Technique du Moteur de Recommandation")
     st.write("Pour le jury du bootcamp, voici comment sont combinées la Programmation Orientée Objet (OOP) et la Programmation Fonctionnelle.")
 
@@ -2367,9 +2514,9 @@ class Recommender(User):
 
 
 # ==============================================================================
-# ONGLET 6 : ANALYSE STATISTIQUE (SciPy)
+# ONGLET 7 : STATISTIQUES (SciPy)
 # ==============================================================================
-with tabs[5]:
+elif active_tab_index == 6:
     st.subheader("📊 Validation Mathématique des Préférences de Segment (SciPy)")
     st.write("L'une des étapes clés du bootcamp COT_GenAI est de valider scientifiquement les distributions de notre population via la statistique.")
     
@@ -2397,7 +2544,10 @@ with tabs[5]:
         **Hypothèse Alternative ($H_1$) :** Il existe une corrélation/association statistique entre l'objectif d'un client et son statut.
         """)
 
-        # Tableau de contingence : croisement Statut × Objectif (calculé dans l'onglet 1)
+        # --- CALCUL DU TABLEAU DE CONTINGENCE (Live) ---
+        contingency_table = pd.crosstab(df_cleaned['bank_status'], df_cleaned['financial_goal'])
+
+        # Tableau de contingence : croisement Statut × Objectif
         st.write("**Tableau de contingence observé (Croisement Statut vs Objectif) :**")
         st.dataframe(contingency_table)
 
@@ -2437,9 +2587,9 @@ with tabs[5]:
 
 
 # ==============================================================================
-# ONGLET 7 : DASHBOARD DÉCISIONNEL (Plotly interactif + export Matplotlib)
+# ONGLET 8 : DASHBOARD (Plotly interactif + export Matplotlib)
 # ==============================================================================
-with tabs[6]:
+elif active_tab_index == 7:
     st.subheader("📈 Tableau de Bord Décisionnel")
     st.write(
         f"Graphiques **interactifs Plotly** recalculés en direct sur **{len(df_cleaned)}** clients "
