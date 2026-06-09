@@ -1,0 +1,61 @@
+{
+  "invalid_emails": 2,
+  "type_errors_annual_income": 1,
+  "type_errors_credit_score": 0,
+  "type_errors_loan_amount": 0,
+  "type_errors_debt_ratio": 0,
+  "outliers_removed": 42,
+  "duplicates_removed": 0,
+  "imputation": {
+    "age": {
+      "strategy": "median",
+      "filled": 42
+    },
+    "annual_income": {
+      "strategy": "median",
+      "filled": 774
+    },
+    "credit_score": {
+      "strategy": "median",
+      "filled": 122
+    },
+    "debt_ratio": {
+      "strategy": "median",
+      "filled": 42
+    },
+    "loan_amount": {
+      "strategy": "median",
+      "filled": 42
+    },
+    "gender": {
+      "strategy": "mode",
+      "filled": 0
+    },
+    "owns_home": {
+      "strategy": "mode",
+      "filled": 0
+    },
+    "loan_purpose": {
+      "strategy": "mode",
+      "filled": 0
+    },
+    "employment": {
+      "strategy": "mode",
+      "filled": 0
+    },
+    "city": {
+      "strategy": "mode",
+      "filled": 0
+    },
+    "email": {
+      "strategy": "mode",
+      "filled": 2
+    }
+  },
+  "rows_before": 5001,
+  "rows_after": 5001,
+  "target_distribution": {
+    "0": 4455,
+    "1": 546
+  }
+}
