@@ -12,59 +12,50 @@
 
 import streamlit as st
 
-# --- pandas : Manipulation de données tabulaires ---
+
 # Fournit la structure "DataFrame" (tableau 2D avec colonnes nommées),
-# similaire à une feuille Excel mais manipulable par du code Python.
+
 # Utilisé ici pour charger, nettoyer et filtrer les profils clients.
 import pandas as pd
 
 # --- numpy : Calcul numérique et tableaux multidimensionnels ---
-# Bibliothèque fondamentale de la data science Python. Offre des tableaux
-# (arrays) très rapides, des fonctions mathématiques (distributions
-# statistiques, clip, seed…) et des opérations vectorisées sur des données.
+
 import numpy as np
 
 # --- scipy.stats : Statistiques avancées ---
 # Module de SciPy dédié aux tests statistiques (Chi-deux, loi normale…).
-# Utilisé pour valider scientifiquement les distributions de la population
-# et calculer les centiles de salaire (CDF de la loi normale).
+
 import scipy.stats as stats
 
 # --- scipy.spatial.distance : Calcul de distances entre vecteurs ---
 # Sous-module de SciPy permettant de calculer des distances (euclidienne,
-# cosinus, Manhattan…) entre des points dans un espace multidimensionnel.
-# Utilisé pour mesurer la similarité entre les profils financiers des clients.
+
 from scipy.spatial import distance
 
 # --- matplotlib.pyplot : Tracé de graphiques scientifiques ---
 # Bibliothèque de visualisation de référence en Python, inspirée de MATLAB.
-# Fournit les fonctions de base pour créer des figures, des axes, des courbes
-# et des images. Utilisée ici pour composer le dashboard 2x2 enregistré en PNG.
+#
 import matplotlib.pyplot as plt
 
 # --- seaborn : Visualisation statistique haut niveau ---
-# Bibliothèque de visualisation construite par-dessus Matplotlib. Offre des
-# graphiques statistiques clé-en-main (histogramme + KDE, heatmap, barplot…)
-# avec des palettes de couleurs soignées et un code plus concis que Matplotlib pur.
+
 import seaborn as sns
 
-# --- json : Sérialisation et désérialisation JSON ---
+
 # Module standard Python pour lire et écrire des fichiers au format JSON
 # (JavaScript Object Notation). Utilisé pour stocker et charger les profils
-# clients dans le fichier `data/users.json`.
+
 import json
 import io
 
 # --- os : Interaction avec le système de fichiers ---
-# Module standard Python donnant accès aux fonctionnalités du système
+
 # d'exploitation : lecture de chemins de fichiers, création de dossiers,
 # vérification d'existence de fichiers, etc.
 import os
 
 # --- random : Génération de nombres aléatoires (Python standard) ---
-# Module standard Python pour le tirage aléatoire "classique" (choix dans une
-# liste, nombre flottant uniforme…). Utilisé conjointement avec NumPy pour
-# mélanger les noms africains et français dans la génération synthétique.
+
 import random
 
 # --- functools.reduce : Réduction de liste par accumulation ---

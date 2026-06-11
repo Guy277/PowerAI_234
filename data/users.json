@@ -916,5 +916,41 @@
         "financial_goal": "investment",
         "risk_level": "medium",
         "bank_status": "premium"
+    },
+    {
+        "name": "SAID ",
+        "age": 30,
+        "salary": 350000,
+        "savings": 75000,
+        "financial_goal": "housing",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "SAID ",
+        "age": 30,
+        "salary": 350000,
+        "savings": 75000,
+        "financial_goal": "housing",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "SAID ",
+        "age": 30,
+        "salary": 350000,
+        "savings": 75000,
+        "financial_goal": "housing",
+        "risk_level": "medium",
+        "bank_status": "standard"
+    },
+    {
+        "name": "SAID ",
+        "age": 30,
+        "salary": 350000,
+        "savings": 75000,
+        "financial_goal": "housing",
+        "risk_level": "medium",
+        "bank_status": "standard"
     }
 ]
